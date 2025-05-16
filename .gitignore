@@ -1,0 +1,7 @@
+node_modules/
+.next/
+.vercel/
+out/
+*.zip
+*.mp4
+*.env
