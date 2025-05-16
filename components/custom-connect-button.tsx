@@ -30,7 +30,7 @@ export function CustomConnectButton() {
         const resolvedDomain = await contract.reverseLookup(address)
         
         if (resolvedDomain && resolvedDomain !== "") {
-          setDomain(`${resolvedDomain}`)
+          setDomain(resolvedDomain)
         } else {
           setDomain(null)
         }
@@ -75,7 +75,7 @@ export function CustomConnectButton() {
           )
         }
 
-        if (chain.unsupported) {
+        if (chain?.unsupported) {
           return (
             <button
               onClick={openChainModal}
@@ -94,19 +94,16 @@ export function CustomConnectButton() {
               type="button"
               className="inline-flex items-center px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium text-sm"
             >
-              {chain.hasIcon && (
+              {chain?.hasIcon && chain?.iconUrl && (
                 <div className="mr-2 relative w-5 h-5">
-                  {chain.iconUrl && (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img
-                      alt={chain.name ?? 'Chain icon'}
-                      src={chain.iconUrl}
-                      className="w-5 h-5"
-                    />
-                  )}
+                  <img
+                    alt={chain.name ?? 'Chain icon'}
+                    src={chain.iconUrl}
+                    className="w-5 h-5"
+                  />
                 </div>
               )}
-              {chain.name}
+              {chain?.name}
             </button>
 
             <button
@@ -114,7 +111,7 @@ export function CustomConnectButton() {
               type="button"
               className="inline-flex items-center px-3 py-2 rounded-md bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-medium text-sm"
             >
-              {domain || account.displayName}
+              {domain ? `${domain}` : account.displayName}
             </button>
           </div>
         )
