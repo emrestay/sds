@@ -276,7 +276,7 @@ export default function Home() {
   }
 
   const getTwitterShareUrl = (domain: string) => {
-    const tweetText = `I just claimed my "${domain}.som" domain via @somniadomains! \n\n@Somnia_Network @SomniaEco \n\nClaim yours now 👉 https://somnia.domains/`
+    const tweetText = `I just claimed my "${domain}.som" domain via @somnia_domains! \n\n@Somnia_Network @SomniaEco \n\nClaim yours now 👉 https://somnia.domains/`
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`
   }
 
@@ -612,7 +612,7 @@ export default function Home() {
       {/* Social Media Links - Fixed at bottom right */}
       <div className="fixed bottom-6 right-6 flex flex-col gap-3">
         <a
-          href="https://x.com/somniadomains"
+          href="https://x.com/somnia_domains"
           target="_blank"
           rel="noopener noreferrer"
           className="bg-white dark:bg-gray-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 group"
