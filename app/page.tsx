@@ -276,7 +276,7 @@ export default function Home() {
   }
 
   const getTwitterShareUrl = (domain: string) => {
-    const tweetText = `I just claimed my "${domain}.som" domain via @somnia_domains! \n\n@Somnia_Network @SomniaEco \n\nClaim yours now 👉 https://somnia.domains/`
+    const tweetText = `I just claimed my "${domain}.som" domain via @somnia_domains! \n\nClaim yours now 👉 https://somnia.domains/`
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`
   }
 
@@ -311,13 +311,11 @@ export default function Home() {
           </div>
 
           <div className="flex items-center gap-4">
-          <a
-              href="https://x.com/somnia_domains/status/1924615163396948442"
-              target="_blank"
-              rel="noopener noreferrer"
+            <a
+              href="/faucet"
               className="inline-flex items-center gap-2 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors"
             >
-              Need $STT?
+              Faucet
             </a>
             <CustomConnectButton />
             <ThemeToggle />
