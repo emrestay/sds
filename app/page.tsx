@@ -276,7 +276,7 @@ export default function Home() {
   }
 
   const getTwitterShareUrl = (domain: string) => {
-    const tweetText = `I just claimed my "${domain}.som" domain via @somnia_domains! \n\nClaim yours now 👉 https://somnia.domains/`
+    const tweetText = `I just claimed my "${domain}.som" domain via @somnia_domains! \n @Somnia_Network @SomniaEco \nClaim yours now 👉 https://somnia.domains/`
     return `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}`
   }
 
