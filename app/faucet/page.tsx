@@ -9,7 +9,7 @@ import { Droplet, Loader2, Info, AlertTriangle } from "lucide-react"
 import { useAccount } from 'wagmi'
 import { CustomConnectButton } from '@/components/custom-connect-button'
 
-const FAUCET_ADDRESS = "0xfd1db32e1f80A436205fd543fD268980aeb35885"
+const FAUCET_ADDRESS = "0x6fC307D6df17eAf09cF6852b775E037E0496b53A"
 const FAUCET_ABI = [
   "function claim() external",
   "function lastClaimTime(address) view returns (uint256)",
@@ -47,7 +47,7 @@ export default function FaucetPage() {
 
       const lastClaimTime = Number(lastClaim) * 1000 // Convert to milliseconds
       const timeSinceLastClaim = Date.now() - lastClaimTime
-      const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000
+      const sevenDaysInMs = 6 * 60 * 60 * 1000 // 6 hours in milliseconds
       const timeLeft = sevenDaysInMs - timeSinceLastClaim
 
       if (!isHolder) {
@@ -57,13 +57,13 @@ export default function FaucetPage() {
       }
 
       if (timeLeft > 0) {
-        const days = Math.floor(timeLeft / (24 * 60 * 60 * 1000))
-        const hours = Math.floor((timeLeft % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000))
-        setTimeRemaining(`${days}d ${hours}h`)
+        const hours = Math.floor(timeLeft / (60 * 60 * 1000))
+        const minutes = Math.floor((timeLeft % (60 * 60 * 1000)) / (60 * 1000))
+        setTimeRemaining(`${hours}h ${minutes}m`)
         setStatus("❌ You must wait before claiming again")
         setStatusType("error")
       } else {
-        setTimeRemaining("")
+        setTimeRemaining("6h 0m")
         setStatus("✅ You can claim 0.2 STT now!")
         setStatusType("success")
       }
@@ -93,7 +93,7 @@ export default function FaucetPage() {
       
       setStatus("✅ Successfully claimed 0.2 STT!")
       setStatusType("success")
-      setTimeRemaining("7d 0h")
+      setTimeRemaining("6h 0m")
     } catch (error) {
       console.error("Error claiming tokens:", error)
       setStatus("Failed to claim tokens")
@@ -114,7 +114,7 @@ export default function FaucetPage() {
                 Somnia Faucet
               </CardTitle>
               <CardDescription className="text-gray-600 dark:text-gray-300">
-                Claim 0.2 STT tokens once every 7 days
+                Claim 0.2 STT tokens once every 6 hours
               </CardDescription>
             </CardHeader>
 
