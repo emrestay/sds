@@ -155,7 +155,7 @@ export default function FaucetPage() {
                 <>
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Connected: {userDomain ? `${userDomain}.som` : `${address?.substring(0, 6)}...${address?.substring(address.length - 4)}`}
+                      Connected: {userDomain ? userDomain : `${address?.substring(0, 6)}...${address?.substring(address.length - 4)}`}
                     </p>
                   </div>
 
