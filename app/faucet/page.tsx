@@ -9,7 +9,7 @@ import { Droplet, Loader2, Info, AlertTriangle } from "lucide-react"
 import { useAccount } from 'wagmi'
 import { CustomConnectButton } from '@/components/custom-connect-button'
 
-const FAUCET_ADDRESS = "0x6fC307D6df17eAf09cF6852b775E037E0496b53A"
+const FAUCET_ADDRESS = "0x0d617c4Bb2ce0F5550be3b3cee23FdEa4D501Cc8"
 const FAUCET_ABI = [
   "function claim() external",
   "function lastClaimTime(address) view returns (uint256)",
@@ -47,7 +47,7 @@ export default function FaucetPage() {
 
       const lastClaimTime = Number(lastClaim) * 1000 // Convert to milliseconds
       const timeSinceLastClaim = Date.now() - lastClaimTime
-      const sevenDaysInMs = 6 * 60 * 60 * 1000 // 6 hours in milliseconds
+      const sevenDaysInMs = 24 * 60 * 60 * 1000 // 24 hours in milliseconds
       const timeLeft = sevenDaysInMs - timeSinceLastClaim
 
       if (!isHolder) {
@@ -63,8 +63,8 @@ export default function FaucetPage() {
         setStatus("❌ You must wait before claiming again")
         setStatusType("error")
       } else {
-        setTimeRemaining("6h 0m")
-        setStatus("✅ You can claim 0.2 STT now!")
+        setTimeRemaining("24h 0m")
+        setStatus("✅ You can claim 0.5 STT now!")
         setStatusType("success")
       }
     } catch (error) {
@@ -81,7 +81,7 @@ export default function FaucetPage() {
 
     try {
       setIsLoading(true)
-      setStatus("Claiming 0.2 STT...")
+      setStatus("Claiming 0.5 STT...")
       setStatusType("info")
 
       const provider = new ethers.BrowserProvider(window.ethereum)
@@ -91,9 +91,9 @@ export default function FaucetPage() {
       const tx = await contract.claim()
       await tx.wait()
       
-      setStatus("✅ Successfully claimed 0.2 STT!")
+      setStatus("✅ Successfully claimed 0.5 STT!")
       setStatusType("success")
-      setTimeRemaining("6h 0m")
+      setTimeRemaining("24h 0m")
     } catch (error) {
       console.error("Error claiming tokens:", error)
       setStatus("Failed to claim tokens")
@@ -114,7 +114,7 @@ export default function FaucetPage() {
                 Somnia Faucet
               </CardTitle>
               <CardDescription className="text-gray-600 dark:text-gray-300">
-                Claim 0.2 STT tokens once every 6 hours
+                Claim 0.5 STT tokens once every 24 hours
               </CardDescription>
             </CardHeader>
 
@@ -146,7 +146,7 @@ export default function FaucetPage() {
                           Claiming...
                         </>
                       ) : (
-                        "Claim 0.2 STT"
+                        "Claim 0.5 STT"
                       )}
                     </Button>
                   </div>
