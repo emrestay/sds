@@ -22,12 +22,37 @@ export default function FaucetPage() {
   const [statusType, setStatusType] = useState<"success" | "error" | "info" | null>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [timeRemaining, setTimeRemaining] = useState<string>("")
+  const [userDomain, setUserDomain] = useState<string | null>(null)
 
   useEffect(() => {
     if (isConnected && address) {
       checkClaim()
+      checkUserDomain()
     }
   }, [isConnected, address])
+
+  const checkUserDomain = async () => {
+    if (!address) return
+
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum)
+      const contract = new ethers.Contract(FAUCET_ADDRESS, FAUCET_ABI, provider)
+      const domain = await contract.isDomainHolder(address)
+      
+      if (domain) {
+        const nameRegistry = new ethers.Contract("0xDB4e0A5E7b0d03aA41cBB7940c5e9Bab06cc7157", [
+          "function reverseLookup(address) view returns (string)"
+        ], provider)
+        const userDomain = await nameRegistry.reverseLookup(address)
+        setUserDomain(userDomain)
+      } else {
+        setUserDomain(null)
+      }
+    } catch (error) {
+      console.error("Error checking user domain:", error)
+      setUserDomain(null)
+    }
+  }
 
   const checkClaim = async () => {
     if (!address) return
@@ -130,7 +155,7 @@ export default function FaucetPage() {
                 <>
                   <div className="p-3 bg-gray-50 dark:bg-gray-800 rounded-lg">
                     <p className="text-sm text-gray-600 dark:text-gray-300">
-                      Connected: {address?.substring(0, 6)}...{address?.substring(address.length - 4)}
+                      Connected: {userDomain ? `${userDomain}.som` : `${address?.substring(0, 6)}...${address?.substring(address.length - 4)}`}
                     </p>
                   </div>
 
